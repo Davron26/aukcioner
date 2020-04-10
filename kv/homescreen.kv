@@ -1,7 +1,82 @@
 
 <HomeScreen>:
-    Button:
-        text:
-            "You are at the home screen"
-        on_press:
-            app.change_screen("second_screen")
+    FloatLayout:
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": 1, "left": 1}
+            size_hint: .2, .7
+            font_size: '20sp'
+            Label:
+                text: "Ваше имя: Davron\n\nДата: 06.04.2020\n\nХод: 0\n\nДеньги: 56$\n\nКапитал: 1000$"
+        GridLayout:
+            cols: 5
+            rows: 6
+            pos_hint: {"top": 1, "right": 1}
+            size_hint: .7, .4
+            #1 строка
+            Widget:
+            Label:
+                text: "Название"
+            Label:
+                text: "Цена"
+            Label:
+                text: "Количество"
+            Label:
+                text: "Разница"
+            #2 строка
+            Label:
+                text: "1"
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+            #3 строка
+            Label:
+                text: "2"
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+            #4 строка
+            Label:
+                text: "3"
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+            #5 строка
+            Label:
+                text: "4"
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+            #6 строка
+            Label:
+                text: "5"
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": .4, "left": 1}
+            size_hint: .3, .4
+            Button:
+                text: "Купить"
+                choose: 1
+                on_release:
+                    app.change_screen("second_screen")
+                    app.change_text("Купить")
+            Button:
+                text: "Продать"
+                choose: 2
+                on_release:
+                    app.change_screen("second_screen")
+                    app.change_text("Продать")
+            Button:
+                text: "Закончить ход"
+            Button:
+                text: "Сохранить"
+            Button:
+                text: "Загрузить"

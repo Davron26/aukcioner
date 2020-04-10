@@ -1,7 +1,22 @@
 
 <StartScreen>:
-    Button:
-        text:
-            "You are at the start screen"
-        on_press:
-            app.change_screen("home_screen")
+    FloatLayout:
+        GridLayout:
+            rows: 3
+            pos_hint: {"x": .1, "y": .2}
+            size_hint: .8, .4
+            id: start_grid
+            Label:
+                text:
+                    "Введите ваше имя"
+                font_size: '20sp'
+            TextInput:
+                size_hint: .5, .5
+                multiline: False
+                font_size: '20sp'
+            Button:
+                size_hint_y: .5
+                text:
+                    "Далее"
+                on_press:
+                    app.change_screen("home_screen")

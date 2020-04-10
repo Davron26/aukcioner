@@ -1,7 +1,38 @@
 
 <SecondScreen>:
-    Button:
-        text:
-            "You are at the second screen"
-        on_press:
-            app.change_screen("start_screen")
+    FloatLayout:
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": .8, "center_x": .5}
+            size_hint: 1, .2
+            Label:
+                font_size: '30sp'
+                text: ""
+                id: menu_label
+            Label:
+                font_size: '20sp'
+                text: "Facebook"
+            Label:
+                font_size: '20sp'
+                text: "982$"
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": .5, "center_x": .5}
+            size_hint: .6, .25
+            TextInput:
+                input_filter: 'int'
+                font_size: '20sp'
+                multiline: False
+            Label:
+                text: "стоит 589$"
+                font_size: '20sp'
+            Button:
+                size_hint_y: 1.5
+                text: "Заплатить"
+                on_release:
+                    app.change_screen("home_screen")
+            Button:
+                size_hint_y: 1.5
+                text: "Назад"
+                on_release:
+                    app.change_screen("home_screen")
