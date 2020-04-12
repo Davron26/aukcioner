@@ -4,10 +4,23 @@
         GridLayout:
             cols: 1
             pos_hint: {"top": 1, "left": 1}
-            size_hint: .2, .7
+            size_hint: .1, .2
             font_size: '20sp'
             Label:
-                text: "Ваше имя: Davron\n\nДата: 06.04.2020\n\nХод: 0\n\nДеньги: 56$\n\nКапитал: 1000$"
+                text: "Ваше имя: "
+            Label:
+                id: menu_name
+            Label:
+                text: "Дата: "
+            Label:
+                id: menu_time
+            Label:
+                text: "Ход: "
+            Label:
+                id: menu_count
+                #"Деньги: 56$\n\nКапитал: 1000$"
+
+
         GridLayout:
             cols: 5
             rows: 6
@@ -76,6 +89,8 @@
                     app.change_text("Продать")
             Button:
                 text: "Закончить ход"
+                on_press:
+                    app.change_count()
             Button:
                 text: "Сохранить"
             Button:

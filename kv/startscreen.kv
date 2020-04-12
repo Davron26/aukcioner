@@ -14,9 +14,13 @@
                 size_hint: .5, .5
                 multiline: False
                 font_size: '20sp'
+                id: text_name
             Button:
                 size_hint_y: .5
                 text:
                     "Далее"
-                on_press:
+                on_release:
                     app.change_screen("home_screen")
+                    app.change_name(text_name.text)
+                    app.change_time()
+                    app.change_count()
