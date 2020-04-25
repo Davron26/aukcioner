@@ -10,29 +10,56 @@
                 text: ""
                 id: menu_label
             Label:
-                font_size: '20sp'
-                text: "Facebook"
+                font_size: '25sp'
+                id: company_label
             Label:
                 font_size: '20sp'
-                text: "982$"
+                id: cost_label
         GridLayout:
             cols: 1
             pos_hint: {"top": .5, "center_x": .5}
             size_hint: .6, .25
+            GridLayout:
+                rows: 1
+                Label:
+                    text: "У вас есть: "
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                Label:
+                    id: buy_money
+                    text_size: self.size
+                    halign: 'left'
+                    valign: 'middle'
+                Widget:
+                Widget:
             TextInput:
                 input_filter: 'int'
                 font_size: '20sp'
                 multiline: False
+                id: cost_input
             Label:
-                text: "стоит 589$"
                 font_size: '20sp'
+                id: show_cost
+            Label:
+                font_size: '20sp'
+                id: show_cost_label
             Button:
                 size_hint_y: 1.5
                 text: "Заплатить"
                 on_release:
-                    app.change_screen("home_screen")
+                    app.operation()
+                    app.change_screen_money("home_screen")
             Button:
                 size_hint_y: 1.5
                 text: "Назад"
                 on_release:
                     app.change_screen("home_screen")
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": .47, "center_x": .84}
+            size_hint: 0.08, 0.048
+            Button:
+                text: "="
+                on_release:
+                    app.multiply()
