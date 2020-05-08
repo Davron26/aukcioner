@@ -107,6 +107,7 @@ celerybeat.pid
 .idea
 .buildozer
 bin
+tests
 env/
 venv/
 ENV/
