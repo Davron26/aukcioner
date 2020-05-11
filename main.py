@@ -235,6 +235,24 @@ class MainApp(App):
         ar = '{:0,.2f}'.format(a)
         cost_show.text = "стоит: "
         cost_label.text = str(ar) + "$"
+    def max(self):
+        second_screen = self.root.ids["second_screen"]
+        cost_input = second_screen.ids["cost_input"]
+        buy_money = second_screen.ids["buy_money"]
+        cost_label = second_screen.ids["cost_label"]
+        cost_show = second_screen.ids["show_cost"]
+        costlabel = second_screen.ids["show_cost_label"]
+        buy2 = buy_money.text.replace(",", "")
+        buy = buy2.replace("$", "")
+        cost = cost_label.text.replace("$", "")
+        try:
+            cost_input.text = str(int(float(buy) / float(cost)))
+        except ValueError:
+            pass
+        a = int(cost_input.text) * float(cost)
+        ar = '{:0,.2f}'.format(a)
+        cost_show.text = "стоит: "
+        costlabel.text = str(ar) + "$"
     def minus_money(self):
         self.check = True
         home_screen = self.root.ids["home_screen"]

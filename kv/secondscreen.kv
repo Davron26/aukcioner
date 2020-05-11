@@ -17,7 +17,7 @@
                 id: cost_label
         GridLayout:
             cols: 1
-            pos_hint: {"top": .5, "center_x": .5}
+            pos_hint: {"top": .5, "center_x": .4}
             size_hint: .6, .25
             GridLayout:
                 rows: 1
@@ -31,13 +31,22 @@
                     text_size: self.size
                     halign: 'left'
                     valign: 'middle'
-                Widget:
-                Widget:
             TextInput:
                 input_filter: 'int'
                 font_size: '20sp'
                 multiline: False
                 id: cost_input
+            Widget:
+            Widget:
+            Widget:
+            Widget:
+        GridLayout:
+            cols: 1
+            pos_hint: {"top": .5, "center_x": .5}
+            size_hint: .6, .25
+            Widget:
+            Widget:
+            Widget:
             Label:
                 font_size: '20sp'
                 id: show_cost
@@ -56,9 +65,14 @@
                 on_release:
                     app.change_screen("home_screen")
         GridLayout:
-            cols: 1
-            pos_hint: {"top": .47, "center_x": .84}
-            size_hint: 0.08, 0.048
+            rows: 1
+            pos_hint: {"top": .46, "center_x": .8}
+            size_hint: 0.18, 0.048
+            Button:
+                text: "max"
+                font_size: '13sp'
+                on_release:
+                    app.max()
             Button:
                 text: "="
                 on_release:
