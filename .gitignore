@@ -103,16 +103,16 @@ celerybeat.pid
 
 # Environments
 .env
-#.venv
-#.idea
-#.buildozer
+.venv
+.idea
+.buildozer
 bin
 tests
 env/
-#venv/
+venv/
 ENV/
 env.bak/
-#venv.bak/
+venv.bak/
 
 # Spyder project settings
 .spyderproject
