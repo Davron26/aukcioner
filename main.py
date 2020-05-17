@@ -125,10 +125,13 @@ class MainApp(App):
             self.kol_vo = kol_vo5
 
         buy_money = second_screen.ids["buy_money"]
+        buy_button = second_screen.ids["buy_button"]
         menu_money = home_screen.ids["menu_money"]
-        if label_text == "Купить":
+        if label_text == "Покупка":
             buy_money.text = menu_money.text
-        if label_text == "Продать":
+            buy_button.text = "Заплатить"
+        if label_text == "Продажа":
+            buy_button.text = "Продать"
             if choose == 1:
                 buy_money.text = kol_vo1.text + " акций"
             if choose == 2:
@@ -142,9 +145,9 @@ class MainApp(App):
     def operation(self):
         second_screen = self.root.ids["second_screen"]
         menu_label = second_screen.ids["menu_label"]
-        if menu_label.text == "Купить":
+        if menu_label.text == "Покупка":
             self.minus_money()
-        if menu_label.text == "Продать":
+        if menu_label.text == "Продажа":
             self.plus_money()
     def change_name(self, label_name):
         home_screen = self.root.ids["home_screen"]
@@ -238,21 +241,31 @@ class MainApp(App):
     def max(self):
         second_screen = self.root.ids["second_screen"]
         cost_input = second_screen.ids["cost_input"]
+        menu_label = second_screen.ids["menu_label"]
         buy_money = second_screen.ids["buy_money"]
         cost_label = second_screen.ids["cost_label"]
         cost_show = second_screen.ids["show_cost"]
         costlabel = second_screen.ids["show_cost_label"]
-        buy2 = buy_money.text.replace(",", "")
-        buy = buy2.replace("$", "")
-        cost = cost_label.text.replace("$", "")
-        try:
-            cost_input.text = str(int(float(buy) / float(cost)))
-        except ValueError:
-            pass
-        a = int(cost_input.text) * float(cost)
-        ar = '{:0,.2f}'.format(a)
-        cost_show.text = "стоит: "
-        costlabel.text = str(ar) + "$"
+        if menu_label.text == "Покупка":
+            buy2 = buy_money.text.replace(",", "")
+            buy = buy2.replace("$", "")
+            cost = cost_label.text.replace("$", "")
+            try:
+                cost_input.text = str(int(float(buy) / float(cost)))
+            except ValueError:
+                pass
+            a = int(cost_input.text) * float(cost)
+            ar = '{:0,.2f}'.format(a)
+            cost_show.text = "стоит: "
+            costlabel.text = str(ar) + "$"
+        elif menu_label.text == "Продажа":
+            cost = cost_label.text.replace("$", "")
+            buy = buy_money.text.replace(" акций", "")
+            cost_input.text = buy
+            a = int(cost_input.text) * float(cost)
+            ar = '{:0,.2f}'.format(a)
+            cost_show.text = "стоит: "
+            costlabel.text = str(ar) + "$"
     def minus_money(self):
         self.check = True
         home_screen = self.root.ids["home_screen"]

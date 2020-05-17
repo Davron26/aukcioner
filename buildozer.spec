@@ -13,7 +13,7 @@ package.domain = net.mukhtarov.davron
 source.dir = .
 
 # (list) Source files to include (let empty to include all the files)
-source.include_exts = py,kv,ttf
+source.include_exts = py,png,kv,ttf
 
 # (list) List of inclusions using pattern matching
 #source.include_patterns = assets/*,images/*.png
@@ -22,13 +22,13 @@ source.include_exts = py,kv,ttf
 #source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
-#source.exclude_dirs = tests, bin
+source.exclude_dirs = bin
 
 # (list) List of exclusions using pattern matching
 #source.exclude_patterns = license,images/*/*.jpg
 
 # (str) Application versioning (method 1)
-version = 0.9
+version = 1.0
 
 # (str) Application versioning (method 2)
 # version.regex = __version__ = ['"](.*)['"]
