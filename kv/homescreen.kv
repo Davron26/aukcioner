@@ -4,7 +4,7 @@
     FloatLayout:
         GridLayout:
             cols: 4
-            rows: 6
+            rows: 7
             pos_hint: {"top": 1, "left": 1}
             size_hint: .8, .4
             #1 строка
@@ -102,9 +102,24 @@
             Label:
                 text: "0"
                 id: raznica5
+            #7 строка
+            Label:
+                text: "Bitcoin"
+                text_size:self.size
+                halign:'left'
+                valign:'middle'
+            Label:
+                text: "9232$"
+                id: bitcoin_cost
+            Label:
+                text: "0"
+                id: kol_vo6
+            Label:
+                text: "0"
+                id: raznica6
         GridLayout:
             cols: 2
-            rows: 5
+            rows: 6
             pos_hint: {"top": .92, "right": 1}
             size_hint: .2, .32
             Button:
@@ -165,6 +180,18 @@
                 on_release:
                     app.change_screen("second_screen")
                     app.change_text("Продажа", 5)
+            Button:
+                text: "+"
+                choose: 1
+                on_release:
+                    app.change_screen("second_screen")
+                    app.change_text("Покупка", 6)
+            Button:
+                text: "-"
+                choose: 2
+                on_release:
+                    app.change_screen("second_screen")
+                    app.change_text("Продажа", 6)
         GridLayout:
             canvas:
                 Color:

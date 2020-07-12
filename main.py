@@ -64,6 +64,7 @@ class MainApp(App):
         kol_vo3 = home_screen.ids["kol_vo3"]
         kol_vo4 = home_screen.ids["kol_vo4"]
         kol_vo5 = home_screen.ids["kol_vo5"]
+        kol_vo6 = home_screen.ids["kol_vo6"]
 
         cost_1 = home_screen.ids["apple_cost"]
         cost1 = cost_1.text.replace("$", "")
@@ -75,13 +76,17 @@ class MainApp(App):
         cost4 = cost_4.text.replace("$", "")
         cost_5 = home_screen.ids["yandex_cost"]
         cost5 = cost_5.text.replace("$", "")
+        cost_6 = home_screen.ids["bitcoin_cost"]
+        cost6_2 = cost_6.text.replace("$", "")
+        cost6 = cost6_2.replace(",", "")
 
         a = float(cost1) * int(kol_vo1.text)
         b = float(cost2) * int(kol_vo2.text)
         c = float(cost3) * int(kol_vo3.text)
         d = float(cost4) * int(kol_vo4.text)
         e = float(cost5) * int(kol_vo5.text)
-        formula = float(menumoney) + a + b + c + d + e
+        f = float(cost6) * int(kol_vo6.text)
+        formula = float(menumoney) + a + b + c + d + e + f
         capital = '{:0,.2f}'.format(formula)
         menu_capital.text = str(capital) + "$"
     def change_text(self, label_text, choose):
@@ -93,6 +98,8 @@ class MainApp(App):
         kol_vo3 = home_screen.ids["kol_vo3"]
         kol_vo4 = home_screen.ids["kol_vo4"]
         kol_vo5 = home_screen.ids["kol_vo5"]
+        kol_vo6 = home_screen.ids["kol_vo6"]
+
         menu_label.text = label_text
 
         home_screen = self.root.ids["home_screen"]
@@ -103,6 +110,8 @@ class MainApp(App):
         facebook_cost = home_screen.ids["facebook_cost"]
         microsoft_cost = home_screen.ids["microsoft_cost"]
         yandex_cost = home_screen.ids["yandex_cost"]
+        bitcoin_cost = home_screen.ids["bitcoin_cost"]
+
         if choose == 1:
             company_label.text = "Apple"
             cost_label.text = apple_cost.text
@@ -123,6 +132,10 @@ class MainApp(App):
             company_label.text = "Yandex"
             cost_label.text = yandex_cost.text
             self.kol_vo = kol_vo5
+        if choose == 6:
+            company_label.text = "Bitcoin"
+            cost_label.text = bitcoin_cost.text
+            self.kol_vo = kol_vo6
 
         buy_money = second_screen.ids["buy_money"]
         buy_button = second_screen.ids["buy_button"]
@@ -142,6 +155,8 @@ class MainApp(App):
                 buy_money.text = kol_vo4.text + " акций"
             if choose == 5:
                 buy_money.text = kol_vo5.text + " акций"
+            if choose == 6:
+                buy_money.text = kol_vo6.text + " акций"
     def operation(self):
         second_screen = self.root.ids["second_screen"]
         menu_label = second_screen.ids["menu_label"]
@@ -187,14 +202,18 @@ class MainApp(App):
         cost_4.text = cost_4.text.replace("$", "")
         cost_5 = home_screen.ids["yandex_cost"]
         cost_5.text = cost_5.text.replace("$", "")
-        cost = [cost_1, cost_2, cost_3, cost_4, cost_5]
+        cost_6 = home_screen.ids["bitcoin_cost"]
+        cost_6_2 = cost_6.text.replace("$", "")
+        cost_6.text = cost_6_2.replace(",", "")
+        cost = [cost_1, cost_2, cost_3, cost_4, cost_5, cost_6]
         raznica1 = home_screen.ids["raznica1"]
         raznica2 = home_screen.ids["raznica2"]
         raznica3 = home_screen.ids["raznica3"]
         raznica4 = home_screen.ids["raznica4"]
         raznica5 = home_screen.ids["raznica5"]
-        raznica = [raznica1, raznica2, raznica3, raznica4, raznica5]
-        for i in range(0, 5):
+        raznica6 = home_screen.ids["raznica6"]
+        raznica = [raznica1, raznica2, raznica3, raznica4, raznica5, raznica6]
+        for i in range(0, 6):
             chance = random.randint(1, 10)
             if int(chance) <= 6:
                 if self.value == "+":
@@ -246,10 +265,15 @@ class MainApp(App):
         cost_label = second_screen.ids["cost_label"]
         cost_show = second_screen.ids["show_cost"]
         costlabel = second_screen.ids["show_cost_label"]
+        company_label = second_screen.ids["company_label"]
         if menu_label.text == "Покупка":
             buy2 = buy_money.text.replace(",", "")
             buy = buy2.replace("$", "")
-            cost = cost_label.text.replace("$", "")
+            if company_label.text == "Bitcoin":
+                cost_2 = cost_label.text.replace("$", "")
+                cost = cost_2.replace(",", "")
+            else:
+                cost = cost_label.text.replace("$", "")
             try:
                 cost_input.text = str(int(float(buy) / float(cost)))
             except ValueError:
@@ -259,7 +283,11 @@ class MainApp(App):
             cost_show.text = "стоит: "
             costlabel.text = str(ar) + "$"
         elif menu_label.text == "Продажа":
-            cost = cost_label.text.replace("$", "")
+            if company_label.text == "Bitcoin":
+                cost_2 = cost_label.text.replace("$", "")
+                cost = cost_2.replace(",", "")
+            else:
+                cost = cost_label.text.replace("$", "")
             buy = buy_money.text.replace(" акций", "")
             cost_input.text = buy
             a = int(cost_input.text) * float(cost)
