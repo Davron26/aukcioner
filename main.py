@@ -344,5 +344,23 @@ class MainApp(App):
             ar = '{:0,.2f}'.format(menumoney)
             menu_money.text = str(ar + "$")
             self.kol_vo.text = str(kol_vo)
+    def plus_cost_input(self, plus):
+        second_screen = self.root.ids["second_screen"]
+        cost_input = second_screen.ids["cost_input"]
+        try:
+            cost = int(cost_input.text)
+        except ValueError:
+            cost = 0
+        if plus == 10:
+            cost_input.text = str(cost + 10)
+        if plus == 20:
+            cost_input.text = str(cost + 20)
+        if plus == 30:
+            cost_input.text = str(cost + 30)
+        if plus == 40:
+            cost_input.text = str(cost + 40)
+        if plus == 50:
+            cost_input.text = str(cost + 50)
+
 
 MainApp().run()

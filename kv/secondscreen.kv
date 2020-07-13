@@ -36,6 +36,28 @@
                 font_size: '20sp'
                 multiline: False
                 id: cost_input
+            GridLayout:
+                rows: 1
+                Button:
+                    text: "+10"
+                    on_release:
+                        app.plus_cost_input(10)
+                Button:
+                    text: "+20"
+                    on_release:
+                        app.plus_cost_input(20)
+                Button:
+                    text: "+30"
+                    on_release:
+                        app.plus_cost_input(30)
+                Button:
+                    text: "+40"
+                    on_release:
+                        app.plus_cost_input(40)
+                Button:
+                    text: "+50"
+                    on_release:
+                        app.plus_cost_input(50)
             Widget:
             Widget:
             Widget:
