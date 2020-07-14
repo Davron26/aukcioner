@@ -36,6 +36,8 @@
                 font_size: '20sp'
                 multiline: False
                 id: cost_input
+                on_text:
+                    app.check_textinput(self.text)
             GridLayout:
                 rows: 1
                 Button:
@@ -95,7 +97,3 @@
                 font_size: '13sp'
                 on_release:
                     app.max()
-            Button:
-                text: "="
-                on_release:
-                    app.multiply()

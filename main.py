@@ -361,6 +361,10 @@ class MainApp(App):
             cost_input.text = str(cost + 40)
         if plus == 50:
             cost_input.text = str(cost + 50)
+        else:
+            cost_input.text = str(cost + 100)
+    def check_textinput(self, text):
+        self.multiply()
 
 
 MainApp().run()
