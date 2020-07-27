@@ -1,15 +1,25 @@
+import os
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, NoTransition
+from kivy.storage.jsonstore import JsonStore
 import datetime
 from datetime import date
 import random
 
+class ChooseScreen(Screen):
+    pass
 class StartScreen(Screen):
     pass
 class HomeScreen(Screen):
     pass
 class SecondScreen(Screen):
+    pass
+class SaveScreen(Screen):
+    pass
+class ReadyExit(Screen):
+    pass
+class LoadScreen(Screen):
     pass
 
 GUI = Builder.load_file("aukcioner.kv")
@@ -24,6 +34,16 @@ class MainApp(App):
         self.years = self.d.year
         self.months = self.d.month
         self.days = self.d.day
+        self.current_time = datetime.date.today()
+
+        try:
+            dirName = '/storage/emulated/0/Android/data/com.akcioner'
+            try:
+                os.mkdir(dirName)
+            except FileExistsError:
+                pass
+        except FileNotFoundError:
+            pass
 
         return GUI
     def change_screen(self, screen_name):
@@ -43,6 +63,60 @@ class MainApp(App):
             screen_manager.current = "start_screen"
         else:
             screen_manager.current = screen_name
+
+        if screen_name == "home_screen":
+            self.exit = False
+        if screen_name == "start_screen":
+            text_name.text = ""
+        if screen_name == "choose_screen":
+            home_screen = self.root.ids["home_screen"]
+            menu_name = home_screen.ids["menu_name"]
+            menu_time = home_screen.ids["menu_time"]
+            menu_count = home_screen.ids["menu_count"]
+            menu_money = home_screen.ids["menu_money"]
+            menu_capital = home_screen.ids["menu_capital"]
+            apple_cost = home_screen.ids["apple_cost"]
+            google_cost = home_screen.ids["google_cost"]
+            facebook_cost = home_screen.ids["facebook_cost"]
+            microsoft_cost = home_screen.ids["microsoft_cost"]
+            yandex_cost = home_screen.ids["yandex_cost"]
+            bitcoin_cost = home_screen.ids["bitcoin_cost"]
+            kol_vo1 = home_screen.ids["kol_vo1"]
+            kol_vo2 = home_screen.ids["kol_vo2"]
+            kol_vo3 = home_screen.ids["kol_vo3"]
+            kol_vo4 = home_screen.ids["kol_vo4"]
+            kol_vo5 = home_screen.ids["kol_vo5"]
+            kol_vo6 = home_screen.ids["kol_vo6"]
+            raznica1 = home_screen.ids["raznica1"]
+            raznica2 = home_screen.ids["raznica2"]
+            raznica3 = home_screen.ids["raznica3"]
+            raznica4 = home_screen.ids["raznica4"]
+            raznica5 = home_screen.ids["raznica5"]
+            raznica6 = home_screen.ids["raznica6"]
+
+            menu_name.text = " "
+            menu_time.text = str(self.current_time)
+            menu_count.text = "0"
+            menu_money.text = "10,000.00$"
+            menu_capital.text = "10000.00$"
+            apple_cost.text = "267$"
+            google_cost.text = "39$"
+            facebook_cost.text = "175$"
+            microsoft_cost.text = "165$"
+            yandex_cost.text = "36$"
+            bitcoin_cost.text = "9232$"
+            kol_vo1.text = "0"
+            kol_vo2.text = "0"
+            kol_vo3.text = "0"
+            kol_vo4.text = "0"
+            kol_vo5.text = "0"
+            kol_vo6.text = "0"
+            raznica1.text = "0"
+            raznica2.text = "0"
+            raznica3.text = "0"
+            raznica4.text = "0"
+            raznica5.text = "0"
+            raznica6.text = "0"
     def change_screen_money(self, screen_name):
         tr = NoTransition()
         screen_manager = self.root.ids["screen_manager"]
@@ -51,6 +125,12 @@ class MainApp(App):
             screen_manager.current = "second_screen"
         else:
             screen_manager.current = screen_name
+    def change_screen_save(self):
+        tr = NoTransition()
+        screen_manager = self.root.ids["screen_manager"]
+        screen_manager.transition = tr
+        screen_manager.current = "save_screen"
+        self.exit = True
     def capital(self):
         home_screen = self.root.ids["home_screen"]
         menu_money = home_screen.ids["menu_money"]
@@ -234,7 +314,8 @@ class MainApp(App):
             cost2 = float(cost[i].text) * float(number) / 100
             cost3 = float(cost[i].text) + float(cost2 * value)
             cost3 = '{:0,.2f}'.format(cost3)
-            cost[i].text = cost3 + "$"
+            cost4 = cost3.replace(",", "")
+            cost[i].text = cost4 + "$"
             raznica[i].text = str(cost2)
             raznica_2 = '{:0,.2f}'.format(float(raznica[i].text))
             raznica[i].text = str(raznica_2) + "$"
@@ -361,10 +442,171 @@ class MainApp(App):
             cost_input.text = str(cost + 40)
         if plus == 50:
             cost_input.text = str(cost + 50)
-        else:
-            cost_input.text = str(cost + 100)
-    def check_textinput(self, text):
+    def check_cost_input(self, text):
         self.multiply()
+    def load(self, file):
+        home_screen = self.root.ids["home_screen"]
+        menu_name = home_screen.ids["menu_name"]
+        menu_time = home_screen.ids["menu_time"]
+        menu_count = home_screen.ids["menu_count"]
+        menu_money = home_screen.ids["menu_money"]
+        menu_capital = home_screen.ids["menu_capital"]
+        apple_cost = home_screen.ids["apple_cost"]
+        google_cost = home_screen.ids["google_cost"]
+        facebook_cost = home_screen.ids["facebook_cost"]
+        microsoft_cost = home_screen.ids["microsoft_cost"]
+        yandex_cost = home_screen.ids["yandex_cost"]
+        bitcoin_cost = home_screen.ids["bitcoin_cost"]
+        kol_vo1 = home_screen.ids["kol_vo1"]
+        kol_vo2 = home_screen.ids["kol_vo2"]
+        kol_vo3 = home_screen.ids["kol_vo3"]
+        kol_vo4 = home_screen.ids["kol_vo4"]
+        kol_vo5 = home_screen.ids["kol_vo5"]
+        kol_vo6 = home_screen.ids["kol_vo6"]
+        raznica1 = home_screen.ids["raznica1"]
+        raznica2 = home_screen.ids["raznica2"]
+        raznica3 = home_screen.ids["raznica3"]
+        raznica4 = home_screen.ids["raznica4"]
+        raznica5 = home_screen.ids["raznica5"]
+        raznica6 = home_screen.ids["raznica6"]
 
+        if file == 1:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file1.json')
+        elif file == 2:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file2.json')
+        elif file == 3:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file3.json')
+
+        menu_name.text = json.get('menu_name')['name']
+        menu_time.text = json.get('menu_time')['name']
+        menu_count.text = json.get('menu_count')['name']
+        menu_money.text = json.get('menu_money')['name']
+        menu_capital.text = json.get('menu_capital')['name']
+        apple_cost.text = json.get('apple_cost')['name']
+        google_cost.text = json.get('google_cost')['name']
+        facebook_cost.text = json.get('facebook_cost')['name']
+        microsoft_cost.text = json.get('microsoft_cost')['name']
+        yandex_cost.text = json.get('yandex_cost')['name']
+        bitcoin_cost.text = json.get('bitcoin_cost')['name']
+        kol_vo1.text = json.get('kol_vo1')['name']
+        kol_vo2.text = json.get('kol_vo2')['name']
+        kol_vo3.text = json.get('kol_vo3')['name']
+        kol_vo4.text = json.get('kol_vo4')['name']
+        kol_vo5.text = json.get('kol_vo5')['name']
+        kol_vo6.text = json.get('kol_vo6')['name']
+        raznica1.text = json.get('raznica1')['name']
+        raznica2.text = json.get('raznica2')['name']
+        raznica3.text = json.get('raznica3')['name']
+        raznica4.text = json.get('raznica4')['name']
+        raznica5.text = json.get('raznica5')['name']
+        raznica6.text = json.get('raznica6')['name']
+
+        self.change_screen("home_screen")
+    def save(self, file):
+        home_screen = self.root.ids["home_screen"]
+        menu_name = home_screen.ids["menu_name"]
+        menu_time = home_screen.ids["menu_time"]
+        menu_count = home_screen.ids["menu_count"]
+        menu_money = home_screen.ids["menu_money"]
+        menu_capital = home_screen.ids["menu_capital"]
+        apple_cost = home_screen.ids["apple_cost"]
+        google_cost = home_screen.ids["google_cost"]
+        facebook_cost = home_screen.ids["facebook_cost"]
+        microsoft_cost = home_screen.ids["microsoft_cost"]
+        yandex_cost = home_screen.ids["yandex_cost"]
+        bitcoin_cost = home_screen.ids["bitcoin_cost"]
+        kol_vo1 = home_screen.ids["kol_vo1"]
+        kol_vo2 = home_screen.ids["kol_vo2"]
+        kol_vo3 = home_screen.ids["kol_vo3"]
+        kol_vo4 = home_screen.ids["kol_vo4"]
+        kol_vo5 = home_screen.ids["kol_vo5"]
+        kol_vo6 = home_screen.ids["kol_vo6"]
+        raznica1 = home_screen.ids["raznica1"]
+        raznica2 = home_screen.ids["raznica2"]
+        raznica3 = home_screen.ids["raznica3"]
+        raznica4 = home_screen.ids["raznica4"]
+        raznica5 = home_screen.ids["raznica5"]
+        raznica6 = home_screen.ids["raznica6"]
+
+        if file == 1:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file1.json')
+        elif file == 2:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file2.json')
+        elif file == 3:
+            json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file3.json')
+
+        json.put('menu_name', name=menu_name.text)
+        json.put('menu_time', name=menu_time.text)
+        json.put('menu_count', name=menu_count.text)
+        json.put('menu_money', name=menu_money.text)
+        json.put('menu_capital', name=menu_capital.text)
+        json.put('apple_cost', name=apple_cost.text)
+        json.put('google_cost', name=google_cost.text)
+        json.put('facebook_cost', name=facebook_cost.text)
+        json.put('microsoft_cost', name=microsoft_cost.text)
+        json.put('yandex_cost', name=yandex_cost.text)
+        json.put('bitcoin_cost', name=bitcoin_cost.text)
+        json.put('kol_vo1', name=kol_vo1.text)
+        json.put('kol_vo2', name=kol_vo2.text)
+        json.put('kol_vo3', name=kol_vo3.text)
+        json.put('kol_vo4', name=kol_vo4.text)
+        json.put('kol_vo5', name=kol_vo5.text)
+        json.put('kol_vo6', name=kol_vo6.text)
+        json.put('raznica1', name=raznica1.text)
+        json.put('raznica2', name=raznica2.text)
+        json.put('raznica3', name=raznica3.text)
+        json.put('raznica4', name=raznica4.text)
+        json.put('raznica5', name=raznica5.text)
+        json.put('raznica6', name=raznica6.text)
+
+        if self.exit == False:
+            self.change_screen("home_screen")
+        else:
+            self.change_screen("choose_screen")
+            self.exit = False
+    def show_save(self):
+        save_screen = self.root.ids["save_screen"]
+        label1 = save_screen.ids["label1"]
+        label2 = save_screen.ids["label2"]
+        label3 = save_screen.ids["label3"]
+
+        file1 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file1.json')
+        file2 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file2.json')
+        file3 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file3.json')
+
+        try:
+            if file1.exists('menu_name'):
+                label_1 = "Имя: " + file1.get('menu_name')['name'] + ", Капитал: " + file1.get('menu_capital')['name']
+                label1.text = label_1
+            if file2.exists('menu_name'):
+                label_2 = "Имя: " + file2.get('menu_name')['name'] + ", Капитал: " + file2.get('menu_capital')['name']
+                label2.text = label_2
+            if file3.exists('menu_name'):
+                label_3 = "Имя: " + file3.get('menu_name')['name'] + ", Капитал: " + file3.get('menu_capital')['name']
+                label3.text = label_3
+        except FileNotFoundError:
+            pass
+    def show_load(self):
+        load_screen = self.root.ids["load_screen"]
+        label1 = load_screen.ids["label1"]
+        label2 = load_screen.ids["label2"]
+        label3 = load_screen.ids["label3"]
+
+        file1 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file1.json')
+        file2 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file2.json')
+        file3 = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file3.json')
+
+        try:
+            if file1.exists('menu_name'):
+                label_1 = "Имя: " + file1.get('menu_name')['name'] + ", Капитал: " + file1.get('menu_capital')['name']
+                label1.text = label_1
+            if file2.exists('menu_name'):
+                label_2 = "Имя: " + file2.get('menu_name')['name'] + ", Капитал: " + file2.get('menu_capital')['name']
+                label2.text = label_2
+            if file3.exists('menu_name'):
+                label_3 = "Имя: " + file3.get('menu_name')['name'] + ", Капитал: " + file3.get('menu_capital')['name']
+                label3.text = label_3
+        except FileNotFoundError:
+            pass
 
 MainApp().run()

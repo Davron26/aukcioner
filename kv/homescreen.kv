@@ -297,6 +297,11 @@
                     app.change_value()
                     app.capital()
             Button:
-                text: "Скоро..."
+                text: "Сохранить игру"
+                on_release:
+                    app.change_screen("save_screen")
+                    app.show_save()
             Button:
-                text: "Скоро..."
+                text: "Выйти"
+                on_release:
+                    app.change_screen("ready_exit")

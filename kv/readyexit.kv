@@ -1,0 +1,22 @@
+<ReadyExit>:
+    FloatLayout:
+        Label:
+            pos_hint: {"x": .1, "y": .5}
+            size_hint: .8, .4
+            text: "Вы уверены что хотите выйти?"
+        GridLayout:
+            cols: 3
+            pos_hint: {"x": .1, "y": .3}
+            size_hint: .8, .15
+            Button:
+                text: "Да"
+                on_release:
+                    app.change_screen("choose_screen")
+            Button:
+                text: "Сохранить\n и выйти"
+                on_release:
+                    app.change_screen_save()
+            Button:
+                text: "Нет"
+                on_release:
+                    app.change_screen("home_screen")

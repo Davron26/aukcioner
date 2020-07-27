@@ -1,0 +1,56 @@
+<LoadScreen>:
+    FloatLayout:
+        GridLayout:
+            rows: 4
+            Label:
+                text: "Файл 1"
+                text_size:self.size
+                halign:'left'
+                valign:'middle'
+            Label:
+                text: "Файл 2"
+                text_size:self.size
+                halign:'left'
+                valign:'middle'
+            Label:
+                text: "Файл 3"
+                text_size:self.size
+                halign:'left'
+                valign:'middle'
+            Widget:
+        Label:
+            id: label1
+            pos_hint: {"top": .85, "right": .7}
+            size_hint: .3, .15
+        Button:
+            text: "Загрузить"
+            pos_hint: {"top": .95, "right": 1}
+            size_hint: .3, .15
+            on_release:
+                app.load(1)
+        Label:
+            id: label2
+            pos_hint: {"top": .6, "right": .7}
+            size_hint: .3, .15
+        Button:
+            text: "Загрузить"
+            pos_hint: {"top": .7, "right": 1}
+            size_hint: .3, .15
+            on_release:
+                app.load(2)
+        Label:
+            id: label3
+            pos_hint: {"top": .35, "right": .7}
+            size_hint: .3, .15
+        Button:
+            text: "Загрузить"
+            pos_hint: {"top": .45, "right": 1}
+            size_hint: .3, .15
+            on_release:
+                app.load(3)
+        Button:
+            text: "Назад"
+            pos_hint: {"top": .2, "right": .65}
+            size_hint: .3, .15
+            on_release:
+                app.change_screen("choose_screen")

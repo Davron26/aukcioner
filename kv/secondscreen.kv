@@ -1,3 +1,7 @@
+<NumText@TextInput>:
+    input_type: 'number'
+    input_filter: 'int'
+    multiline: False
 
 <SecondScreen>:
     FloatLayout:
@@ -17,7 +21,7 @@
                 id: cost_label
         GridLayout:
             cols: 1
-            pos_hint: {"top": .5, "center_x": .4}
+            pos_hint: {"top": .53, "center_x": .4}
             size_hint: .6, .25
             GridLayout:
                 rows: 1
@@ -31,13 +35,11 @@
                     text_size: self.size
                     halign: 'left'
                     valign: 'middle'
-            TextInput:
-                input_filter: 'int'
+            NumText:
                 font_size: '20sp'
-                multiline: False
                 id: cost_input
                 on_text:
-                    app.check_textinput(self.text)
+                    app.check_cost_input(self.text)
             GridLayout:
                 rows: 1
                 Button:
@@ -88,12 +90,10 @@
                 text: "Назад"
                 on_release:
                     app.change_screen("home_screen")
-        GridLayout:
-            rows: 1
-            pos_hint: {"top": .46, "center_x": .8}
-            size_hint: 0.18, 0.048
-            Button:
-                text: "max"
-                font_size: '13sp'
-                on_release:
-                    app.max()
+        Button:
+            pos_hint: {"top": .495, "right": .8}
+            size_hint: .1, .075
+            text: "max"
+            font_size: '13sp'
+            on_release:
+                app.max()

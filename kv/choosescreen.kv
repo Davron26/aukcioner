@@ -1,0 +1,19 @@
+<ChooseScreen>:
+    FloatLayout:
+        Label:
+            pos_hint: {"x": .1, "y": .5}
+            size_hint: .8, .4
+            text: "Выберите что вы будете делать дальше"
+        Button:
+            pos_hint: {"x": .1, "y": .3}
+            size_hint: .3, .15
+            text: "Новая игра"
+            on_release:
+                app.change_screen("start_screen")
+        Button:
+            pos_hint: {"x": .6, "y": .3}
+            size_hint: .3, .15
+            text: "Загрузить игру"
+            on_release:
+                app.change_screen("load_screen")
+                app.show_load()

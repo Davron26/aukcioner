@@ -1,11 +1,18 @@
+#:include kv/choosescreen.kv
 #:include kv/startscreen.kv
 #:include kv/homescreen.kv
 #:include kv/secondscreen.kv
+#:include kv/savescreen.kv
+#:include kv/readyexit.kv
+#:include kv/loadscreen.kv
 
 GridLayout:
     cols: 1
     ScreenManager:
         id: screen_manager
+        ChooseScreen:
+            name: "choose_screen"
+            id: choose_screen
         StartScreen:
             name: "start_screen"
             id: start_screen
@@ -15,3 +22,12 @@ GridLayout:
         SecondScreen:
             name: "second_screen"
             id: second_screen
+        SaveScreen:
+            name: "save_screen"
+            id: save_screen
+        ReadyExit:
+            name: "ready_exit"
+            id: ready_exit
+        LoadScreen:
+            name: "load_screen"
+            id: load_screen
