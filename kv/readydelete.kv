@@ -1,0 +1,18 @@
+<ReadyDelete>:
+    FloatLayout:
+        Label:
+            id: ready_label
+            pos_hint: {"x": .1, "y": .5}
+            size_hint: .8, .4
+        GridLayout:
+            cols: 2
+            pos_hint: {"x": .1, "y": .3}
+            size_hint: .8, .15
+            Button:
+                text: "Да"
+                on_release:
+                    app.delete("True")
+            Button:
+                text: "Нет"
+                on_release:
+                    app.delete("False")

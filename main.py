@@ -6,6 +6,8 @@ from kivy.storage.jsonstore import JsonStore
 import datetime
 from datetime import date
 import random
+from android.permissions import request_permissions, Permission
+request_permissions([Permission.READ_EXTERNAL_STORAGE, Permission.WRITE_EXTERNAL_STORAGE])
 
 class ChooseScreen(Screen):
     pass
@@ -21,6 +23,8 @@ class ReadyExit(Screen):
     pass
 class LoadScreen(Screen):
     pass
+class ReadyDelete(Screen):
+    pass
 
 GUI = Builder.load_file("aukcioner.kv")
 
@@ -34,7 +38,6 @@ class MainApp(App):
         self.years = self.d.year
         self.months = self.d.month
         self.days = self.d.day
-        self.current_time = datetime.date.today()
 
         try:
             dirName = '/storage/emulated/0/Android/data/com.akcioner'
@@ -69,6 +72,11 @@ class MainApp(App):
         if screen_name == "start_screen":
             text_name.text = ""
         if screen_name == "choose_screen":
+            self.count = 0
+            self.d = datetime.date.today()
+            self.years = self.d.year
+            self.months = self.d.month
+            self.days = self.d.day
             home_screen = self.root.ids["home_screen"]
             menu_name = home_screen.ids["menu_name"]
             menu_time = home_screen.ids["menu_time"]
@@ -95,7 +103,7 @@ class MainApp(App):
             raznica6 = home_screen.ids["raznica6"]
 
             menu_name.text = " "
-            menu_time.text = str(self.current_time)
+            menu_time.text = str(self.d)
             menu_count.text = "0"
             menu_money.text = "10,000.00$"
             menu_capital.text = "10000.00$"
@@ -131,6 +139,17 @@ class MainApp(App):
         screen_manager.transition = tr
         screen_manager.current = "save_screen"
         self.exit = True
+    def change_screen_delete(self, screen_name, file):
+        tr = NoTransition()
+        screen_manager = self.root.ids["screen_manager"]
+        screen_manager.transition = tr
+        screen_manager.current = "ready_delete"
+        self.screen = screen_name
+        self.file = file
+
+        ready_delete = self.root.ids["ready_delete"]
+        ready_label = ready_delete.ids["ready_label"]
+        ready_label.text = "Вы уверены что хотите удалить файл " + str(file) + "?"
     def capital(self):
         home_screen = self.root.ids["home_screen"]
         menu_money = home_screen.ids["menu_money"]
@@ -477,31 +496,34 @@ class MainApp(App):
         elif file == 3:
             json = JsonStore('/storage/emulated/0/Android/data/com.akcioner/file3.json')
 
-        menu_name.text = json.get('menu_name')['name']
-        menu_time.text = json.get('menu_time')['name']
-        menu_count.text = json.get('menu_count')['name']
-        menu_money.text = json.get('menu_money')['name']
-        menu_capital.text = json.get('menu_capital')['name']
-        apple_cost.text = json.get('apple_cost')['name']
-        google_cost.text = json.get('google_cost')['name']
-        facebook_cost.text = json.get('facebook_cost')['name']
-        microsoft_cost.text = json.get('microsoft_cost')['name']
-        yandex_cost.text = json.get('yandex_cost')['name']
-        bitcoin_cost.text = json.get('bitcoin_cost')['name']
-        kol_vo1.text = json.get('kol_vo1')['name']
-        kol_vo2.text = json.get('kol_vo2')['name']
-        kol_vo3.text = json.get('kol_vo3')['name']
-        kol_vo4.text = json.get('kol_vo4')['name']
-        kol_vo5.text = json.get('kol_vo5')['name']
-        kol_vo6.text = json.get('kol_vo6')['name']
-        raznica1.text = json.get('raznica1')['name']
-        raznica2.text = json.get('raznica2')['name']
-        raznica3.text = json.get('raznica3')['name']
-        raznica4.text = json.get('raznica4')['name']
-        raznica5.text = json.get('raznica5')['name']
-        raznica6.text = json.get('raznica6')['name']
+        try:
+            menu_name.text = json.get('menu_name')['name']
+            menu_time.text = json.get('menu_time')['name']
+            menu_count.text = json.get('menu_count')['name']
+            menu_money.text = json.get('menu_money')['name']
+            menu_capital.text = json.get('menu_capital')['name']
+            apple_cost.text = json.get('apple_cost')['name']
+            google_cost.text = json.get('google_cost')['name']
+            facebook_cost.text = json.get('facebook_cost')['name']
+            microsoft_cost.text = json.get('microsoft_cost')['name']
+            yandex_cost.text = json.get('yandex_cost')['name']
+            bitcoin_cost.text = json.get('bitcoin_cost')['name']
+            kol_vo1.text = json.get('kol_vo1')['name']
+            kol_vo2.text = json.get('kol_vo2')['name']
+            kol_vo3.text = json.get('kol_vo3')['name']
+            kol_vo4.text = json.get('kol_vo4')['name']
+            kol_vo5.text = json.get('kol_vo5')['name']
+            kol_vo6.text = json.get('kol_vo6')['name']
+            raznica1.text = json.get('raznica1')['name']
+            raznica2.text = json.get('raznica2')['name']
+            raznica3.text = json.get('raznica3')['name']
+            raznica4.text = json.get('raznica4')['name']
+            raznica5.text = json.get('raznica5')['name']
+            raznica6.text = json.get('raznica6')['name']
 
-        self.change_screen("home_screen")
+            self.change_screen("home_screen")
+        except KeyError:
+            pass
     def save(self, file):
         home_screen = self.root.ids["home_screen"]
         menu_name = home_screen.ids["menu_name"]
@@ -564,6 +586,35 @@ class MainApp(App):
         else:
             self.change_screen("choose_screen")
             self.exit = False
+    def delete(self, file):
+        save_screen = self.root.ids["save_screen"]
+        load_screen = self.root.ids["load_screen"]
+        slabel1 = save_screen.ids["label1"]
+        slabel2 = save_screen.ids["label2"]
+        slabel3 = save_screen.ids["label3"]
+        llabel1 = load_screen.ids["label1"]
+        llabel2 = load_screen.ids["label2"]
+        llabel3 = load_screen.ids["label3"]
+        if file == "True":
+            try:
+                if self.file == 1:
+                    os.remove('/storage/emulated/0/Android/data/com.akcioner/file1.json')
+                    slabel1.text = ""
+                    llabel1.text = ""
+                elif self.file == 2:
+                    os.remove('/storage/emulated/0/Android/data/com.akcioner/file2.json')
+                    slabel2.text = ""
+                    llabel2.text = ""
+                elif self.file == 3:
+                    os.remove('/storage/emulated/0/Android/data/com.akcioner/file3.json')
+                    slabel3.text = ""
+                    llabel3.text = ""
+            except OSError:
+                pass
+
+            self.change_screen(self.screen)
+        else:
+            self.change_screen(self.screen)
     def show_save(self):
         save_screen = self.root.ids["save_screen"]
         label1 = save_screen.ids["label1"]
